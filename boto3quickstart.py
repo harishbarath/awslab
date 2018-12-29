@@ -15,6 +15,11 @@ def printEc2():
 	response = ec2.describe_instances()
 	print(response)
 
+def  printEC2Images():
+	ec2=boto3.client('ec2')
+	response = ec2.describe_images(Filters=[{'Name': 'architecture', 'Values': ['x86_64']}])
+	print(response)
+
 print('S3 related')
 print('==========')
 #  get s3 resource type
@@ -34,3 +39,5 @@ print(response)
 	
 printS3Info()
 printEc2()
+# This function takes time. So commenting out for now.
+# printEC2Images()
