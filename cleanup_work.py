@@ -15,4 +15,4 @@ for instance in ec2.instances.all():
 
 #Delete the Keypair
 os.chmod('WebServer.pem', 0o777)
-os.remote('WebServer.pem')
+os.remove('WebServer.pem')
