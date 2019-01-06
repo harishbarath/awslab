@@ -14,4 +14,5 @@ for instance in ec2.instances.all():
     print(response)
 
 #Delete the Keypair
-os.remote('WebServerKey')
+os.chmod('WebServer.pem', 0o777)
+os.remote('WebServer.pem')
