@@ -59,11 +59,11 @@ route_table.associate_with_subnet(SubnetId=subnet_web.id)
 db_route_table = vpc.create_route_table()
 #db_route_ig_ipv4 = db_route_table.create_route(
 #        DestinationCidrBlock='0.0.0.0/0', 
-#        EgressOnlyInternetGatewayId=egress_internet_gateway[EgressOnlyInternetGatewayId])  
-#db_route_ig_ipv6 = db_route_table.create_route(
-#        DestinationIpv6CidrBlock='::/0', 
-#        EgressOnlyInternetGatewayId=egress_internet_gateway[EgressOnlyInternetGatewayId])  
-#db_route_table.associate_with_subnet(SubnetId=subnet_db.id)
+#        EgressOnlyInternetGatewayId=egress_internet_gateway['EgressOnlyInternetGateway']['EgressOnlyInternetGatewayId'])  
+db_route_ig_ipv6 = db_route_table.create_route(
+        DestinationIpv6CidrBlock='::/0', 
+        EgressOnlyInternetGatewayId=egress_internet_gateway['EgressOnlyInternetGateway']['EgressOnlyInternetGatewayId'])  
+db_route_table.associate_with_subnet(SubnetId=subnet_db.id)
 
 print('Route tables created')
 ch = sys.stdin.read(1)
@@ -126,6 +126,7 @@ instances = ec2.create_instances(
     InstanceType="t2.micro",
     NetworkInterfaces=[
         {
+            'AssociatePublicIpAddress': True,
             'SubnetId': subnet_web.id,
             'DeviceIndex': 0,
             'AssociatePublicIpAddress': True, 
